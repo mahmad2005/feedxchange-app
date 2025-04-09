@@ -94,5 +94,7 @@ jobs:
           USER=$(echo "$PUBLISH_PROFILE" | sed -n 's/.*userName="\([^"]*\)".*/\1/p')
           PASS=$(echo "$PUBLISH_PROFILE" | sed -n 's/.*userPWD="\([^"]*\)".*/\1/p')
           SCM_SITE=https://feedxchange-gitaction-hzdhagfgc0cfapgw.scm.canadacentral-01.azurewebsites.net
-          echo "🚀 Running npm install and build on Azure via Kudu command API..."
-          curl -u "$USER:$PASS" -X POST "$SCM_SITE/api/command" -H "Content-Type: application/json" -d '{ "command": "npm install && npm run build" }'
+          echo "🚀 Running npm install and build on Azure via Kudu API..."
+          curl -u "$USER:$PASS" -X POST "$SCM_SITE/api/command" \
+            -H "Content-Type: application/json" \
+            -d '{ "command": "sh -c \"npm install && npm run build\"" }'
