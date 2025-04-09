@@ -1,0 +1,128 @@
+import Header from "../components/Header"
+import Footer from "../components/Footer"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+
+export default function AboutPage() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow">
+        <section className="bg-gray-50 py-12 md:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p className="text-xl text-gray-700 mb-8">
+              At FeedXchange, we're transforming the way farmers source feed. With real-time price comparisons, market
+              insights, and hassle-free ordering, we make it easier than ever for farmers to save time and lower costs.
+            </p>
+            <h2 className="text-3xl font-semibold text-gray-900 mb-4">Our Mission</h2>
+            <p className="text-lg text-gray-700 mb-8">
+              Empower farmers with transparent access to the best feed prices while simplifying the buying process.
+              Built by farmers, for farmers, we understand the unique challenges you face and are dedicated to helping
+              you stay ahead of the market—so you can focus on what matters most: your farm and your animals.
+            </p>
+          </div>
+        </section>
+
+        <section className="py-12 md:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-semibold text-gray-900 mb-6">Our Story</h2>
+            <div className="bg-white shadow-lg rounded-lg p-8 mb-8">
+              <p className="text-lg text-gray-700 mb-4">
+                FeedXchange started with a simple question: Why is buying feed so complicated?
+              </p>
+              <p className="text-lg text-gray-700 mb-4">
+                As a farmer, I spent countless hours chasing the best prices, juggling endless calls to brokers, and
+                dealing with a market that seemed anything but transparent. Frustrated by the inefficiency, I realized
+                there had to be a better way.
+              </p>
+              <p className="text-lg text-gray-700 mb-4">
+                That's why I created FeedXchange—a platform built to simplify feed procurement. With real-time price
+                comparisons, seamless ordering, and transparent market insights, we're empowering farmers across Western
+                Canada to save time, cut costs, and make smarter decisions.
+              </p>
+              <p className="text-lg text-gray-700">
+                At FeedXchange, we're more than a tool—we're a partner in your success.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-gray-50 py-12 md:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-semibold text-gray-900 mb-12">Founding Team</h2>
+
+            <div className="grid md:grid-cols-2 gap-12">
+              <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div className="aspect-square">
+                  <img src="/styn.jpg" alt="Styn Nieuwenhuis" className="object-cover w-full h-full" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">Styn Nieuwenhuis</h3>
+                  <h4 className="text-xl text-primary mb-4">Founder</h4>
+                  <p className="text-gray-700 mb-4">
+                    Styn Nieuwenhuis farms alongside his father, managing a mixed dairy and grain operation near Red
+                    Deer, Alberta. Growing up in a farming family, Styn developed a deep understanding of the challenges
+                    and demands that come with running a modern agricultural business.
+                  </p>
+                  <p className="text-gray-700 mb-4">
+                    His passion for efficiency and innovation led him to seek out diverse farming experiences, which
+                    have shaped his approach to managing operations today.
+                  </p>
+                  <p className="text-gray-700 mb-4">
+                    Styn has worked on dairy farms in New Zealand, gaining valuable experience in pasture-based grazing systems and large-scale milk production. He also spent time working on a 10,000-acre grain farm, where he honed his skills in large-scale crop management, machinery operation, and precision agriculture techniques. Additionally, his work at a leading agricultural research farm provided him with insights into cutting-edge farming practices and the latest advancements in agronomy and livestock management.
+                  </p>
+                  <p className="text-gray-700 mb-4">
+                    Today, Styn applies his diverse experience to his own farm, where he focuses on improving operational efficiency, and ensuring sustainable farm management. His firsthand struggles with the complexities of sourcing feed inspired him to create FeedXchange—a platform designed to simplify the feed buying process for farmers and help them secure the best prices with minimal hassle.
+                  </p>
+                  <p className="text-gray-700">
+                    With a strong background in both hands-on farming and agricultural technology, Styn is dedicated to providing practical solutions that empower farmers to make smarter, data-driven decisions and build more profitable, sustainable operations. In his free time, he enjoys running, hiking and skiing.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div className="aspect-square">
+                  <img src="/kevin.png" alt="Kevin Frankowski" className="object-cover w-full h-full" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">Kevin Frankowski</h3>
+                  <h4 className="text-xl text-primary mb-4">Director of Innovation</h4>
+                  <p className="text-gray-700 mb-4">
+                  Kevin is an innovation specialist, focused on creating value for users, investors and partners. He is a founder and the CEO of Ox + Plow Agriculture, a Canadian-based investment firm and innovation developer, collaborating with agricultural producers through long-term partnerships and ongoing access to leading-edge solutions. He is serial entrepreneur who has successfully achieved multiple exits. Additionally, he has led a groundbreaking technology accelerator in the energy sector, as well as a $36m pilot-testing facility for the University of Calgary focused on de-risking emerging water and wastewater treatment technologies. He has led multiple innovation teams and coached over 100 companies in their growth from idea to market. Kevin also has extensive experience in corporate innovation for companies such as ATCO, ENMAX, Suncor and WestJet, enabling them to unlock new growth potential. Kevin enjoys spending time in the beautiful outdoors with his family.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div className="aspect-square">
+                  <img src="/cortina.png" alt="Cortina" className="object-cover w-full h-full" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">Cortina Kereluk-Bird</h3>
+                  <h4 className="text-xl text-primary mb-4">Chief Operating Officer</h4>
+                  <p className="text-gray-700 mb-4">
+                  Cortina is the CEO of FeedXChange, an AgTech innovation company improving how farmers secure feed supplies. She is also a founder and the President of Ox + Plow Agriculture, a Canadian-based investment firm and innovation developer that collaborates with agricultural producers through long-term partnerships and access to advanced technologies. Co-owner of Tax Haus Inc. since 2004, Cortina has decades of experience supporting farming and ranching families. Based in Calgary, she is a dedicated tennis player, world traveler, and enjoys summers at the lake with her family.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-12 md:py-24 bg-primary text-white text-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-semibold mb-6">Ready to transform your feed buying experience?</h2>
+            <p className="text-xl mb-8">Join FeedXchange today and start saving time and money.</p>
+            <Link href="/contact" passHref>
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+                Sign Up Now
+              </Button>
+            </Link>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
+  )
+}
+
