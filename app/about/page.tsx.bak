@@ -57,7 +57,7 @@ export default function AboutPage() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-2xl font-semibold text-gray-900 mb-2">Styn Nieuwenhuis</h3>
-                  <h4 className="text-xl text-primary mb-4">Founder & Director of Business Development</h4>
+                  <h4 className="text-xl text-primary mb-4">Director of Business Development</h4>
                   <p className="text-gray-700 mb-4">
                     Styn Nieuwenhuis farms alongside his father, managing a mixed dairy and grain operation near Red
                     Deer, Alberta. Growing up in a farming family, Styn developed a deep understanding of the challenges
