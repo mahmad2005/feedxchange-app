@@ -58,7 +58,7 @@ jobs:
           PASS=$(echo "$PUBLISH_PROFILE" | sed -n 's/.*userPWD="\([^"]*\)".*/\1/p')
           SCM_SITE=https://feedxchange-gitaction-hzdhagfgc0cfapgw.scm.canadacentral-01.azurewebsites.net
           echo "💥 Cleaning /site/wwwroot via Kudu API..."
-          curl -u "$USER:$PASS" -X DELETE "$SCM_SITE/api/vfs/site/wwwroot/"
+          curl -s -o /dev/null -w "%{http_code}" -u "$USER:$PASS" -X DELETE "$SCM_SITE/api/vfs/site/wwwroot/?recursive=true"
 
       - name: Download artifact
         uses: actions/download-artifact@v4
