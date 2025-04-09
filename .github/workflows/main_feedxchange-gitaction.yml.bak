@@ -25,10 +25,10 @@ jobs:
         run: npm ci --production
 
       - name: Build the app
-          run: |
-            set -x  # Echo commands for debugging
-            npm run build
-            echo "✅ Build step completed without error"
+        run: |
+          set -x  # Echo commands for debugging
+          npm run build
+          echo "✅ Build step completed without error"
 
       - name: Prepare deploy folder
         run: |
