@@ -18,29 +18,24 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'  # Compatible stable version for Next.js
+          node-version: '18.x'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build the project
+      - name: Build project with standalone output
         run: npm run build
-        
-      - name: Copy public folder to standalone
-        run: cp -r public .next/standalone/
 
-      - name: Upload artifact
+      - name: Copy static and public to standalone
+        run: |
+          cp -r public .next/standalone/
+          cp -r .next/static .next/standalone/.next/
+
+      - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-app
-          path: |
-            .next/standalone
-            .next/static
-            public
-            package.json
-            next.config.js
-            next.config.mjs
-            tsconfig.json
+          path: .next/standalone
 
   deploy:
     runs-on: ubuntu-latest
