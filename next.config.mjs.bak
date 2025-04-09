@@ -1,3 +1,5 @@
+import { join } from 'path'
+
 let userConfig = undefined
 try {
   userConfig = await import('./v0-user-next.config')
@@ -21,7 +23,10 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
-  //output: 'standalone', // ✅ ADD THIS LINE
+  webpack: (config) => {
+    config.resolve.alias['@'] = join(__dirname)
+    return config
+  },
 }
 
 mergeConfig(nextConfig, userConfig)
