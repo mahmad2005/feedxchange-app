@@ -21,20 +21,17 @@ jobs:
         with:
           node-version: '22.x'
 
-      - name: Install production dependencies
-        run: npm ci #install #ci --production
-
-      - name: Build the app
-        run: |
-          set -x  # Echo commands for debugging
-          npm run build
-          echo "✅ Build step completed without error"
+      # Optional: just test build locally in GitHub, not needed for Azure
+      # - name: Test local build (optional)
+      #   run: |
+      #     npm install
+      #     npm run build
 
       - name: Prepare deploy folder
         run: |
           mkdir deploy-folder
-          cp -r app components data hooks lib public styles .next node_modules deploy-folder/ || true
-          cp package.json next.config.mjs tsconfig.json tailwind.config.ts postcss.config.mjs deploy-folder/ || true
+          cp -r app components data hooks lib public styles deploy-folder/ || true
+          cp package.json package-lock.json next.config.mjs tsconfig.json tailwind.config.ts postcss.config.mjs deploy-folder/ || true
 
       - name: Zip artifact for deployment
         run: cd deploy-folder && zip -r ../release.zip .
