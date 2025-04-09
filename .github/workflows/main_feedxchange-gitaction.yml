@@ -65,14 +65,14 @@ jobs:
         with:
           name: node-app
 
-      - name: Unzip artifact
-        run: unzip release.zip
+      # - name: Unzip artifact
+        # run: unzip release.zip
 
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: 'feedXchange-gitAction'
-          slot-name: 'Production'
-          package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_81685AD6F9A74EDA9AAB1001C785E2FA }}
+      # - name: Deploy to Azure Web App
+        # id: deploy-to-webapp
+        # uses: azure/webapps-deploy@v3
+        # with:
+          # app-name: 'feedXchange-gitAction'
+          # slot-name: 'Production'
+          # package: .
+          # publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_81685AD6F9A74EDA9AAB1001C785E2FA }}

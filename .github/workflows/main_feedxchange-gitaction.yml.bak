@@ -56,7 +56,7 @@ jobs:
         run: |
           USER=$(echo "$PUBLISH_PROFILE" | sed -n 's/.*userName="\([^"]*\)".*/\1/p')
           PASS=$(echo "$PUBLISH_PROFILE" | sed -n 's/.*userPWD="\([^"]*\)".*/\1/p')
-          SCM_SITE=https://feedxchange-gitaction.scm.azurewebsites.net
+          SCM_SITE=https://feedxchange-gitaction-hzdhagfgc0cfapgw.scm.canadacentral-01.azurewebsites.net
           echo "💥 Cleaning /site/wwwroot via Kudu API..."
           curl -u "$USER:$PASS" -X DELETE "$SCM_SITE/api/vfs/site/wwwroot/"
 
