@@ -1,4 +1,4 @@
-name: Build and deploy Next.js app to Azure Web App - FeedXchangeOnNodeJS
+name: Deploy Next.js full app to Azure Web App - FeedXchangeOnNodeJS
 
 on:
   push:
@@ -7,48 +7,39 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project with standalone output
-        run: npm run build
-
-      - name: Copy static and public to standalone
-        run: |
-          cp -r public .next/standalone/
-          cp -r .next/static .next/standalone/.next/
-
-      - name: Upload artifact for deployment
+      - name: Upload source code (excluding node_modules and .next)
         uses: actions/upload-artifact@v4
         with:
-          name: nextjs-app
-          path: .next/standalone
+          name: app-code
+          path: |
+            ./
+            !node_modules/**
+            !.next/**
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: build-and-deploy
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Download artifact
+      - name: Download code
         uses: actions/download-artifact@v4
         with:
-          name: nextjs-app
+          name: app-code
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
