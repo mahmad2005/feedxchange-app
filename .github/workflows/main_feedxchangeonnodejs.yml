@@ -31,9 +31,9 @@ jobs:
         with:
           name: nextjs-app
           path: |
-            .next
+            .next/standalone
+            .next/static
             public
-            node_modules
             package.json
             next.config.js
             next.config.mjs
