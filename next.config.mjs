@@ -21,7 +21,7 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
-  output: 'standalone', // ✅ ADD THIS LINE
+  //output: 'standalone', // ✅ ADD THIS LINE
 }
 
 mergeConfig(nextConfig, userConfig)
