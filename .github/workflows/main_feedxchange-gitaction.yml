@@ -97,4 +97,4 @@ jobs:
           echo "🚀 Running npm install and build on Azure via Kudu API..."
           curl -u "$USER:$PASS" -X POST "$SCM_SITE/api/command" \
             -H "Content-Type: application/json" \
-            -d '{ "command": "sh -c \"rm -rf node_modules package-lock.json && npm cache clean --force && npm install && npm run build\"" }'
+            -d '{ "command": "sh -c \"rm -rf node_modules package-lock.json /home/.npm /tmp/.npm && npm cache clean --force && npm install --force && npm run build --force && npm start\"" }'
