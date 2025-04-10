@@ -46,9 +46,9 @@ jobs:
           chmod +x deploy/server.js
        
       - name: Verify deployed files
-         run: |
-           ls -la deploy/
-           ls -la deploy/.next
+        run: |
+          ls -la deploy/
+          ls -la deploy/.next
 
       # - name: Prepare final deploy folder.
         # run: |
