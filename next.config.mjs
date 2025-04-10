@@ -30,6 +30,7 @@ const nextConfig = {
     config.resolve.alias['@'] = join(__dirname)
     return config
   },
+  output: 'standalone', // ✅ ADD THIS LINE
 }
 
 mergeConfig(nextConfig, userConfig)
