@@ -35,7 +35,7 @@ jobs:
           jq '.scripts = { start: "node server.js" }' .next/standalone/package.json > .next/standalone/package.tmp.json
           mv .next/standalone/package.tmp.json .next/standalone/package.json
 
-      - name: Prepare final deploy folder2
+      - name: Prepare final deploy folder.
         run: |
           mkdir -p deploy
           cp -r .next/standalone/* deploy/
