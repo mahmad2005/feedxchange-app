@@ -57,5 +57,5 @@ jobs:
         with:
           app-name: 'FeedXchangeOnNodeJS'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0C47C12011AE4AD1850F468D13DC1B5E }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_81685AD6F9A74EDA9AAB1001C785E2FA }}
           package: .
