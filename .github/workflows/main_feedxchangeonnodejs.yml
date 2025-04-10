@@ -30,44 +30,48 @@ jobs:
         # run: |
           # cp -r public .next/standalone/
 
-      - name: Patch package.json "start" script
-        run: |
-          jq '.scripts = { start: "node server.js" }' .next/standalone/package.json > .next/standalone/package.tmp.json
-          mv .next/standalone/package.tmp.json .next/standalone/package.json
-
-      - name: Prepare final deploy folder
-        run: |
-          mkdir -p deploy
-          # Copy all standalone files including hidden ones
-          rsync -a .next/standalone/ deploy/
-          # Copy public folder
-          cp -r public deploy/
-          # Ensure server.js is executable
-          chmod +x deploy/server.js
-       
-      - name: Verify deployed files
-        run: |
-          ls -la deploy/
-          ls -la deploy/.next
-
-      # - name: Prepare final deploy folder.
+      # - name: Patch package.json "start" script
         # run: |
-          # mkdir -p deploy
-          # cp -r .next/standalone/* deploy/
-          # #cp -r .next/standalone/.next deploy/.next
-          # cp -r .next/standalone/. deploy/
-          # cp -r public .next/standalone/
-          # # cp -r .next/standalone/server.js deploy/
-          # # cp -r .next/standalone/package.json deploy/
-          
+          # jq '.scripts = { start: "node server.js" }' .next/standalone/package.json > .next/standalone/package.tmp.json
+          # mv .next/standalone/package.tmp.json .next/standalone/package.json
+
       # - name: Prepare final deploy folder
         # run: |
-          # rsync -av --progress .next/standalone/ deploy/
-          # cp -r public deploy/public
-      - name: Create deployment zip
-        run: |
-          cd deploy
-          zip -r ../deploy.zip . -x "*.git*"  # Include ALL files (even hidden ones), except .git
+          # mkdir -p deploy
+          # # Copy all standalone files including hidden ones
+          # rsync -a .next/standalone/ deploy/
+          # # Copy public folder
+          # cp -r public deploy/
+          # # Ensure server.js is executable
+          # chmod +x deploy/server.js
+       
+      # - name: Verify deployed files
+        # run: |
+          # ls -la deploy/
+          # ls -la deploy/.next
+
+      # # - name: Prepare final deploy folder.
+        # # run: |
+          # # mkdir -p deploy
+          # # cp -r .next/standalone/* deploy/
+          # # #cp -r .next/standalone/.next deploy/.next
+          # # cp -r .next/standalone/. deploy/
+          # # cp -r public .next/standalone/
+          # # # cp -r .next/standalone/server.js deploy/
+          # # # cp -r .next/standalone/package.json deploy/
+          
+      # # - name: Prepare final deploy folder
+        # # run: |
+          # # rsync -av --progress .next/standalone/ deploy/
+          # # cp -r public deploy/public
+      # - name: Create deployment zip
+        # run: |
+          # cd deploy
+          # zip -r ../deploy.zip . -x "*.git*"  # Include ALL files (even hidden ones), except .git
+      
+      - name: Zip build folder for deployment
+        run: zip -r deploy.zip 
+
 
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
