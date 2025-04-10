@@ -35,15 +35,30 @@ jobs:
           jq '.scripts = { start: "node server.js" }' .next/standalone/package.json > .next/standalone/package.tmp.json
           mv .next/standalone/package.tmp.json .next/standalone/package.json
 
-      - name: Prepare final deploy folder.
+      - name: Prepare final deploy folder
         run: |
           mkdir -p deploy
-          cp -r .next/standalone/* deploy/
-          #cp -r .next/standalone/.next deploy/.next
-          cp -r .next/standalone/. deploy/
-          cp -r public .next/standalone/
-          # cp -r .next/standalone/server.js deploy/
-          # cp -r .next/standalone/package.json deploy/
+          # Copy all standalone files including hidden ones
+          rsync -a .next/standalone/ deploy/
+          # Copy public folder
+          cp -r public deploy/
+          # Ensure server.js is executable
+          chmod +x deploy/server.js
+       
+      - name: Verify deployed files
+         run: |
+           ls -la deploy/
+           ls -la deploy/.next
+
+      # - name: Prepare final deploy folder.
+        # run: |
+          # mkdir -p deploy
+          # cp -r .next/standalone/* deploy/
+          # #cp -r .next/standalone/.next deploy/.next
+          # cp -r .next/standalone/. deploy/
+          # cp -r public .next/standalone/
+          # # cp -r .next/standalone/server.js deploy/
+          # # cp -r .next/standalone/package.json deploy/
           
       # - name: Prepare final deploy folder
         # run: |
