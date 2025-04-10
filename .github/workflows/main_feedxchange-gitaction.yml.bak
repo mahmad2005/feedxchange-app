@@ -1,4 +1,4 @@
-name: Build and deploy Node.js app to Azure Web App - feedXchange-gitAction
+name: Deploy Node.js App to Azure Web App via Oryx
 
 on:
   push:
@@ -7,10 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
       - name: Checkout repository
@@ -21,92 +19,16 @@ jobs:
         with:
           node-version: '22.x'
 
-      # Optional: just test build locally in GitHub, not needed for Azure
-      # - name: Test local build (optional)
+      # Optional: Run build locally (optional if you want Oryx to handle it)
+      # - name: Install dependencies and build
       #   run: |
       #     npm install
       #     npm run build
 
-      - name: Prepare deploy folder
-        run: |
-          mkdir deploy-folder
-          cp -r app components data hooks lib public styles deploy-folder/ || true
-          cp package.json package-lock.json next.config.mjs tsconfig.json tailwind.config.ts postcss.config.mjs deploy-folder/ || true
-
-      - name: Zip artifact for deployment
-        run: cd deploy-folder && zip -r ../release.zip .
-
-      - name: Upload deployment artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: node-app
-          path: release.zip
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:
-      - name: Clean wwwroot via Kudu API
-        env:
-          PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_81685AD6F9A74EDA9AAB1001C785E2FA }}
-        run: |
-          USER=$(echo "$PUBLISH_PROFILE" | sed -n 's/.*userName="\([^"]*\)".*/\1/p')
-          PASS=$(echo "$PUBLISH_PROFILE" | sed -n 's/.*userPWD="\([^"]*\)".*/\1/p')
-          SCM_SITE=https://feedxchange-gitaction-hzdhagfgc0cfapgw.scm.canadacentral-01.azurewebsites.net
-          echo "💥 Cleaning /site/wwwroot via Kudu API..."
-          curl -s -o /dev/null -w "%{http_code}" -u "$USER:$PASS" -X DELETE "$SCM_SITE/api/vfs/site/wwwroot/?recursive=true"
-          
-      - name: Recreate /site/wwwroot directory via Kudu API
-        env:
-          PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_81685AD6F9A74EDA9AAB1001C785E2FA }}
-        run: |
-          USER=$(echo "$PUBLISH_PROFILE" | sed -n 's/.*userName="\([^"]*\)".*/\1/p')
-          PASS=$(echo "$PUBLISH_PROFILE" | sed -n 's/.*userPWD="\([^"]*\)".*/\1/p')
-          SCM_SITE=https://feedxchange-gitaction-hzdhagfgc0cfapgw.scm.canadacentral-01.azurewebsites.net
-          echo "📁 Recreating /site/wwwroot directory via Kudu API..."
-          curl -u "$USER:$PASS" -X PUT "$SCM_SITE/api/vfs/site/wwwroot/"
-
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: node-app
-
-      - name: Unzip artifact
-        run: unzip release.zip
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
+      - name: Deploy to Azure Web App using Oryx
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'feedXchange-gitAction'
+          app-name: 'feedXchange-gitAction'  # Replace with your actual app name
           slot-name: 'Production'
-          package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_81685AD6F9A74EDA9AAB1001C785E2FA }}
-
-      - name: Run npm install and build via Kudu API
-        env:
-          PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_81685AD6F9A74EDA9AAB1001C785E2FA }}
-        run: |
-          USER=$(echo "$PUBLISH_PROFILE" | sed -n 's/.*userName="\([^"]*\)".*/\1/p')
-          PASS=$(echo "$PUBLISH_PROFILE" | sed -n 's/.*userPWD="\([^"]*\)".*/\1/p')
-          SCM_SITE=https://feedxchange-gitaction-hzdhagfgc0cfapgw.scm.canadacentral-01.azurewebsites.net
-          echo "🚀 Running npm install and build on Azure via Kudu API..."
-          curl -u "$USER:$PASS" -X POST "$SCM_SITE/api/command" \
-            # Clean first
-            curl -u "$USER:$PASS" -X POST "$SCM_SITE/api/command" \
-              -H "Content-Type: application/json" \
-              -d '{ "command": "rm -rf node_modules package-lock.json /home/.npm /tmp/.npm" }'
-            
-            # Then install
-            curl -u "$USER:$PASS" -X POST "$SCM_SITE/api/command" \
-              -H "Content-Type: application/json" \
-              -d '{ "command": "npm cache clean --force && npm install" }'
-            
-            # Then build
-            curl -u "$USER:$PASS" -X POST "$SCM_SITE/api/command" \
-              -H "Content-Type: application/json" \
-              -d '{ "command": "npm run build" }'
+          package: .
