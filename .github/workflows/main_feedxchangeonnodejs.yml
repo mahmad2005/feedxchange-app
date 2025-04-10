@@ -20,11 +20,11 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: Install dependencies
-        run: npm install
+      # - name: Install dependencies
+        # run: npm install
 
-      - name: Build project with standalone output
-        run: npm run build
+      # - name: Build project with standalone output
+        # run: npm run build
 
       # - name: Copy public assets into standalone folder
         # run: |
@@ -68,6 +68,11 @@ jobs:
         # run: |
           # cd deploy
           # zip -r ../deploy.zip . -x "*.git*"  # Include ALL files (even hidden ones), except .git
+          
+      - name: Install dependencies and build
+        run: |
+          npm install
+          npm run build
       
       - name: Zip build folder for deployment
         run: zip -r deploy.zip 
