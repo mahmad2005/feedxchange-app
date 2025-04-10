@@ -32,7 +32,7 @@ jobs:
 
       - name: Patch package.json "start" script
         run: |
-          jq '.scripts.start = "node server.js"' .next/standalone/package.json > .next/standalone/package.tmp.json
+          jq '.scripts = { start: "node server.js" }' .next/standalone/package.json > .next/standalone/package.tmp.json
           mv .next/standalone/package.tmp.json .next/standalone/package.json
 
       - name: Upload artifact for deployment

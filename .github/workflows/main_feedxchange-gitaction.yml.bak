@@ -58,7 +58,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'FeedXchangeOnNodeJS'
+          app-name: 'feedXchange-gitAction'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_81685AD6F9A74EDA9AAB1001C785E2FA }}
           package: .
