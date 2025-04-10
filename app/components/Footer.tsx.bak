@@ -40,7 +40,7 @@ export default function Footer() {
               Subscribe to our newsletter
             </h3>
             <p className="mt-4 text-base text-[hsl(var(--footer-foreground))] opacity-80">
-              The latest news, articles, and resources, sent to your inbox.
+              The latest news, articles, and resources, sent to your inbox weekly.
             </p>
             <form className="mt-4 sm:flex sm:max-w-md">
               <Input
