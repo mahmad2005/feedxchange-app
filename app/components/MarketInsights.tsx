@@ -1,4 +1,4 @@
-import { TrendingUp, AlertCircle, MapPin, Bell } from "lucide-react"
+import { TrendingUp, AlertCircle, MapPin, Bell, ChartColumnStacked } from "lucide-react"
 import Image from "next/image"
 
 export default function MarketInsights() {
@@ -26,7 +26,7 @@ export default function MarketInsights() {
     {
       title: "Price Benchmarking",
       description: "Track your purchase history and compare it with current market prices.",
-      icon: Bell,
+      icon: ChartColumnStacked,
     },
   ]
 

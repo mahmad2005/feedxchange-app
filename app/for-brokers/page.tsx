@@ -1,7 +1,7 @@
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, Users, MessageSquare, Truck, Package, FileText } from "lucide-react"
+import { CheckCircle, Users, MessageSquare, Truck, Package, FileText, TrendingUpDown } from "lucide-react"
 import Link from "next/link"
 import ParallaxSection from "../components/ParallaxSection"
 import Image from "next/image"
@@ -72,8 +72,8 @@ export default function ForBrokersPage() {
                 }, */
                 {
                   title: "Predictive Analytics",
-                  description: "OGain insights into customer buying patterns and forecast future demand to stay ahead of the market.",
-                  icon: Truck,
+                  description: "Gain insights into customer buying patterns and forecast future demand to stay ahead of the market.",
+                  icon: TrendingUpDown,
                 },
               ].map((feature, index) => (
                 <div key={index} className="bg-white shadow-lg rounded-lg p-6">

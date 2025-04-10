@@ -65,9 +65,14 @@ export default function ForBrokersPage() {
                   description: "Monitor stock levels in real-time to meet demand without delays.",
                   icon: Package,
                 },
-                {
+/*                 {
                   title: "Logistics Management",
                   description: "Optimize transportation, track shipments, and coordinate deliveries effortlessly.",
+                  icon: Truck,
+                }, */
+                {
+                  title: "Predictive Analytics",
+                  description: "Gain insights into customer buying patterns and forecast future demand to stay ahead of the market.",
                   icon: Truck,
                 },
               ].map((feature, index) => (

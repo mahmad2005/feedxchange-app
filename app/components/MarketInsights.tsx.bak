@@ -18,9 +18,14 @@ export default function MarketInsights() {
       description: "Find the best deals from suppliers across Western Canada tailored to your farm's needs.",
       icon: MapPin,
     },
-    {
+/*     {
       title: "Smart Alerts",
       description: "Never miss a deal. Set custom price alerts to act fast when the timing is right.",
+      icon: Bell,
+    }, */
+    {
+      title: "Price Benchmarking",
+      description: "Track your purchase history and compare it with current market prices.",
       icon: Bell,
     },
   ]
