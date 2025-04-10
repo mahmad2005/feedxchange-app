@@ -1,4 +1,4 @@
-name: Deploy Node.js App to Azure Web App via Oryx
+name: Deploy Node.js App to Azure using Oryx
 
 on:
   push:
@@ -17,15 +17,9 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22.x'
+          node-version: '18.x'  # or 20.x if supported by Azure App Service
 
-      # Optional: Run build locally (optional if you want Oryx to handle it)
-      # - name: Install dependencies and build
-      #   run: |
-      #     npm install
-      #     npm run build
-
-      - name: Deploy to Azure Web App using Oryx
+      - name: Deploy to Azure Web App via Oryx
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'feedXchange-gitAction'  # Replace with your actual app name
