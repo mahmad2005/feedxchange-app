@@ -26,20 +26,28 @@ jobs:
       - name: Build project with standalone output
         run: npm run build
 
-      - name: Copy public assets into standalone folder
-        run: |
-          cp -r public .next/standalone/
+      # - name: Copy public assets into standalone folder
+        # run: |
+          # cp -r public .next/standalone/
 
       - name: Patch package.json "start" script
         run: |
           jq '.scripts = { start: "node server.js" }' .next/standalone/package.json > .next/standalone/package.tmp.json
           mv .next/standalone/package.tmp.json .next/standalone/package.json
 
+      - name: Prepare final deploy folder
+        run: |
+          mkdir -p deploy
+          cp -r .next/standalone/* deploy/
+          cp -r .next/standalone/.next deploy/.next
+          cp server.js deploy/
+          cp package.json deploy/
+
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-app
-          path: .next/standalone/
+          path: deploy/
 
   deploy:
     runs-on: ubuntu-latest
