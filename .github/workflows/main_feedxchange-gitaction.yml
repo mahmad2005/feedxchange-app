@@ -96,5 +96,17 @@ jobs:
           SCM_SITE=https://feedxchange-gitaction-hzdhagfgc0cfapgw.scm.canadacentral-01.azurewebsites.net
           echo "🚀 Running npm install and build on Azure via Kudu API..."
           curl -u "$USER:$PASS" -X POST "$SCM_SITE/api/command" \
-            -H "Content-Type: application/json" \
-            -d '{ "command": "sh -c \"rm -rf node_modules package-lock.json /home/.npm /tmp/.npm && npm cache clean --force && npm install --force && npm run build --force && npm start\"" }'
+            # Clean first
+            curl -u "$USER:$PASS" -X POST "$SCM_SITE/api/command" \
+              -H "Content-Type: application/json" \
+              -d '{ "command": "rm -rf node_modules package-lock.json /home/.npm /tmp/.npm" }'
+            
+            # Then install
+            curl -u "$USER:$PASS" -X POST "$SCM_SITE/api/command" \
+              -H "Content-Type: application/json" \
+              -d '{ "command": "npm cache clean --force && npm install" }'
+            
+            # Then build
+            curl -u "$USER:$PASS" -X POST "$SCM_SITE/api/command" \
+              -H "Content-Type: application/json" \
+              -d '{ "command": "npm run build" }'
