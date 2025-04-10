@@ -26,16 +26,17 @@ jobs:
       - name: Build project with standalone output
         run: npm run build
 
-      - name: Copy static and public to standalone
+      - name: Prepare deployment package
         run: |
-          cp -r public .next/standalone/
-          #cp -r .next/static .next/standalone/.next/
+          mkdir -p deploy
+          cp -r .next/standalone/* deploy/
+          cp -r public deploy/public
 
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-app
-          path: .next/standalone
+          path: deploy/
 
   deploy:
     runs-on: ubuntu-latest
@@ -57,4 +58,4 @@ jobs:
           app-name: 'FeedXchangeOnNodeJS'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0C47C12011AE4AD1850F468D13DC1B5E }}
-          package: .next/standalone/
+          package: .
