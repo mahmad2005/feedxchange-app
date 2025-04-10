@@ -40,6 +40,7 @@ jobs:
           mkdir -p deploy
           # Copy all standalone files including hidden ones
           rsync -a .next/standalone/ deploy/
+          rsync -a .next/static/ deploy/.next/static/
           # Copy public folder
           cp -r public deploy/
           # Ensure server.js is executable

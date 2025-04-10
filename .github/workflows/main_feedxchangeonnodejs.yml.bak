@@ -75,7 +75,7 @@ jobs:
           npm run build
       
       - name: Zip build folder for deployment
-        run: zip -r deploy.zip 
+        run: zip -r deploy.zip ./* -r
 
 
       - name: Upload artifact for deployment

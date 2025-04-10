@@ -20,62 +20,67 @@ jobs:
         with:
           node-version: '18.x'
 
-      # - name: Install dependencies
-        # run: npm install
+      - name: Install dependencies
+        run: npm install
 
-      # - name: Build project with standalone output
-        # run: npm run build
+      - name: Build project with standalone output
+        run: npm run build
 
-      # - name: Copy public assets into standalone folder
-        # run: |
-          # cp -r public .next/standalone/
+      - name: Copy public assets into standalone folder
+        run: |
+          cp -r public .next/standalone/
 
-      # - name: Patch package.json "start" script
-        # run: |
-          # jq '.scripts = { start: "node server.js" }' .next/standalone/package.json > .next/standalone/package.tmp.json
-          # mv .next/standalone/package.tmp.json .next/standalone/package.json
+      - name: Patch package.json "start" script
+        run: |
+          jq '.scripts = { start: "node server.js" }' .next/standalone/package.json > .next/standalone/package.tmp.json
+          mv .next/standalone/package.tmp.json .next/standalone/package.json
 
-      # - name: Prepare final deploy folder
+      - name: Prepare final deploy folder
+        run: |
+          mkdir -p deploy
+          # Copy all standalone files including hidden ones
+          rsync -a .next/standalone/ deploy/
+          rsync -a .next/static/ deploy/.next/static/
+          # Copy public folder
+          cp -r public deploy/
+          # Ensure server.js is executable
+          chmod +x deploy/server.js
+       
+      - name: Verify deployed files
+        run: |
+          ls -la deploy/
+          ls -la deploy/.next
+
+      # - name: Prepare final deploy folder.
         # run: |
           # mkdir -p deploy
-          # # Copy all standalone files including hidden ones
-          # rsync -a .next/standalone/ deploy/
-          # # Copy public folder
-          # cp -r public deploy/
-          # # Ensure server.js is executable
-          # chmod +x deploy/server.js
-       
-      # - name: Verify deployed files
-        # run: |
-          # ls -la deploy/
-          # ls -la deploy/.next
-
-      # # - name: Prepare final deploy folder.
-        # # run: |
-          # # mkdir -p deploy
-          # # cp -r .next/standalone/* deploy/
-          # # #cp -r .next/standalone/.next deploy/.next
-          # # cp -r .next/standalone/. deploy/
-          # # cp -r public .next/standalone/
-          # # # cp -r .next/standalone/server.js deploy/
-          # # # cp -r .next/standalone/package.json deploy/
+          # cp -r .next/standalone/* deploy/
+          # #cp -r .next/standalone/.next deploy/.next
+          # cp -r .next/standalone/. deploy/
+          # cp -r public .next/standalone/
+          # # cp -r .next/standalone/server.js deploy/
+          # # cp -r .next/standalone/package.json deploy/
           
-      # # - name: Prepare final deploy folder
-        # # run: |
-          # # rsync -av --progress .next/standalone/ deploy/
-          # # cp -r public deploy/public
-      # - name: Create deployment zip
+      # - name: Prepare final deploy folder
         # run: |
-          # cd deploy
-          # zip -r ../deploy.zip . -x "*.git*"  # Include ALL files (even hidden ones), except .git
-          
-      - name: Install dependencies and build
+          # rsync -av --progress .next/standalone/ deploy/
+          # cp -r public deploy/public
+      - name: Create deployment zip
         run: |
-          npm install
-          npm run build
+          cd deploy
+          zip -r ../deploy.zip . -x "*.git*"  # Include ALL files (even hidden ones), except .git
+          
+          
+          
+      # - name: Install dependencies and build
+        # run: |
+          # npm install
+          # npm run build
       
-      - name: Zip build folder for deployment
-        run: zip -r deploy.zip ./* -r
+      # - name: Zip build folder for deployment
+        # run: zip -r deploy.zip ./* -r
+
+
 
 
       - name: Upload artifact for deployment

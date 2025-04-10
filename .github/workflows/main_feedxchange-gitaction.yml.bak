@@ -67,7 +67,7 @@ jobs:
       - name: Create deployment zip
         run: |
           cd deploy
-          zip -r ../deploy.zip .
+          zip -r ../deploy.zip . -x "*.git*"  # Include ALL files (even hidden ones), except .git
 
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
